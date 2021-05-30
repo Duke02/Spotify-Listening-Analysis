@@ -18,6 +18,7 @@ def get_spotify_data(file_type: str) -> tp.List[tp.Dict]:
 
 
 def get_spotify_client():
+    print('Make sure you don\'t log your spotify credentials! Use %%capture in Jupyter notebooks!')
     with open(SPOTIFY_CREDENTIALS_PATH, 'r') as f:
         creds_json = json.load(f)
         creds = SpotifyClientCredentials(client_id=creds_json['client_id'], client_secret=creds_json['client_secret'])
@@ -25,6 +26,7 @@ def get_spotify_client():
         return sp.Spotify(auth=token)
 
 def get_spotify_oauth(scopes=[]):
+    print('Make sure you don\'t log your spotify credentials! Use %%capture in Jupyter notebooks!')
     with open(SPOTIFY_CREDENTIALS_PATH, 'r') as f:
         creds_json = json.load(f)
         print(creds_json)
