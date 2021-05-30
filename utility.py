@@ -2,7 +2,8 @@ import os.path
 import json
 import typing as tp
 import spotipy as sp
-from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
+
 
 FILE_PATH: str = os.path.join('.', 'MyData')
 SPOTIFY_CREDENTIALS_PATH: str = os.path.join('.', 'spotify_creds.json')
@@ -22,3 +23,14 @@ def get_spotify_client():
         creds = SpotifyClientCredentials(client_id=creds_json['client_id'], client_secret=creds_json['client_secret'])
         token = creds.get_access_token()
         return sp.Spotify(auth=token)
+
+def get_spotify_oauth(scopes=[]):
+    with open(SPOTIFY_CREDENTIALS_PATH, 'r') as f:
+        creds_json = json.load(f)
+        print(creds_json)
+        oauth = SpotifyOAuth(client_id=creds_json['client_id'], 
+                             client_secret=creds_json['client_secret'], 
+                             redirect_uri=creds_json['redirect_url'],
+                             scope=','.join(scopes))
+        return sp.Spotify(auth_manager=oauth)
+        
