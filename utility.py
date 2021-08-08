@@ -29,7 +29,6 @@ def get_spotify_oauth(scopes=[]):
     print('Make sure you don\'t log your spotify credentials! Use %%capture in Jupyter notebooks!')
     with open(SPOTIFY_CREDENTIALS_PATH, 'r') as f:
         creds_json = json.load(f)
-        print(creds_json)
         oauth = SpotifyOAuth(client_id=creds_json['client_id'], 
                              client_secret=creds_json['client_secret'], 
                              redirect_uri=creds_json['redirect_url'],
